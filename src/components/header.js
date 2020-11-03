@@ -11,10 +11,7 @@ function Header() {
     <header className="bg-primary bg-opacity-0 md:bg-opacity-100 absolute md:static w-full">
       <div className="flex flex-wrap items-center justify-between max-w-4xl p-4 mx-auto lg-px-8">
         <Link to="/">
-            <div className="grid-rows-3 cols-auto">
             <img className="rows-span-3 float-left h-16" src={logoSmall} alt="wildwish.org" />
-            {/* <span className="object-bottom text-white">WildWish</span> */}
-            </div>
         </Link>
         <Link to="/">
         </Link>
