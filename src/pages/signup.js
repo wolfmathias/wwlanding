@@ -10,11 +10,10 @@ function SignupPage() {
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
         title="Signup"
       />
-      <section>
-        <form className="mx-auto md:w-1/2">
+      <section className="mt-24 md:mt-0">
+        <form className="mx-auto py-8 w-3/4 lg:w-1/3">
           <p className="mb-8 leading-loose">
-            Here is an example of a form built using the official Tailwind CSS
-            Custom Forms plugin.{` `}
+            Sign up to get notified when wildwish.org launches.{` `}
             <a
               className="font-bold text-gray-700 no-underline"
               href="https://github.com/tailwindcss/custom-forms"
@@ -36,7 +35,7 @@ function SignupPage() {
           <input
             className="w-full mb-6 form-input"
             id="first-name"
-            placeholder="Bill"
+            placeholder="Paul"
             type="text"
           />
 
@@ -50,9 +49,18 @@ function SignupPage() {
           <input
             className="w-full mb-6 form-input"
             id="last-name"
-            placeholder="Murray"
+            placeholder="Blart"
             type="text"
           />
+
+          <input 
+            className="form-checkbox"
+            type="checkbox"
+          />
+
+          <label className="inline-block px-2 mb-2 text-xs font-thin tracking-tight">
+              Contact me about adding my animals to the pilot program.
+          </label>
 
           <label
             className="block mb-2 text-xs font-bold uppercase"
