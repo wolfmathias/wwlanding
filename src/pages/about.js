@@ -32,7 +32,7 @@ function AboutPage() {
               </p>
               <p>
                 Wildwish.org connects people with the animals their money is helping. Toys and enrichment are crowdsourced with microdonations, and donors are
-                notified when their animal gets the toy they conrtibuted to.
+                notified when their animal gets the toy they helped buy.
               </p>
               <p className="clear-right">
                 This program is free for zoos and wildlife sanctuaries. We often get asked &quot;What&apos;s the catch?&quot; when working with a zoo to
