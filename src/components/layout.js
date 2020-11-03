@@ -13,6 +13,9 @@ function Layout({ children }) {
       </main>
 
       <footer className="bg-primary text-thgrey">
+        <span className="flex justify mx-auto px-4 font-bold tracking-tight text-sm">
+          WildWish.org
+        </span>
         <nav className="flex justify-between max-w-4xl px-4 mx-auto text-xs md:p-4">
           <p className="text-thgrey">
             A program by{` `}
