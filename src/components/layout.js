@@ -1,9 +1,20 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { graphql, useStaticQuery } from "gatsby";
 
 import Header from "./header";
 
 function Layout({ children }) {
+  const { site } = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
+
   return (
     <div className="flex flex-col min-h-screen font-sans text-gray-900">
       <Header />
@@ -14,7 +25,7 @@ function Layout({ children }) {
 
       <footer className="bg-primary text-thgrey">
         <span className="flex justify mx-auto px-4 font-bold tracking-tight text-sm">
-          WildWish.org
+          {site.siteMetadata.title}
         </span>
         <nav className="flex justify-between max-w-4xl px-4 mx-auto text-xs md:p-4">
           <p className="text-thgrey">

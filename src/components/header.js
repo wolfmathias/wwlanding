@@ -1,17 +1,8 @@
-import { graphql, useStaticQuery, Link } from "gatsby";
+import { Link } from "gatsby";
 import React, { useState } from "react";
 import logoSmall from '../images/ww-logo-small.png'
 function Header() {
   const [isExpanded, toggleExpansion] = useState(false);
-  const { site } = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
 
   //  TODO: 
   //  Add animation of header opacity turning to 80 or so onScroll
@@ -20,7 +11,11 @@ function Header() {
     <header className="bg-primary bg-opacity-0 md:bg-opacity-100 absolute md:static w-full">
       <div className="flex flex-wrap items-center justify-between max-w-4xl p-4 mx-auto lg-px-8">
         <Link to="/">
-            <img className="object-contain h-16" src={logoSmall} alt={site.siteMetadata.title} />
+
+            <img className="float-left object-contain h-16" src={logoSmall} alt={site.siteMetadata.title} />
+            <span className="text-thgrey text-sm hidden md:inline-block align-text-bottom">{site.siteMetadata.title}</span> 
+        </Link>
+        <Link to="/">
         </Link>
 
         <button
