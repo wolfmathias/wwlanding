@@ -5,7 +5,7 @@ const fullConfig = resolveConfig(tailwindConfig);
 
 module.exports = {
   siteMetadata: {
-    title: `WildWish`,
+    title: `WildWish.org`,
     description: `Sending toys to zoo animals around the world.`,
     author: `@mattplichtawild`,
   },
