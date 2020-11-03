@@ -17,6 +17,7 @@ function Layout({ children }) {
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-gray-900">
+    <div dangerouslySetInnerHTML={{ __html: "<!-- Hi! I'm glad you're here and reading this, it means you can help! I'm building this application on my own in my free time, I learned programming just to make this idea happen (and find a job). Check out my github at https://www.github.com/mattplichtawild and email me if you want to contribute to the project! I'm also open to work and seeking roles as a software engineer -->" }} />
       <Header />
 
       <main className="flex-1 w-full mx-auto">
