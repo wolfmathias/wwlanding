@@ -12,28 +12,28 @@ function Layout({ children }) {
         {children}
       </main>
 
-      <footer className="bg-blue-700">
-        <nav className="flex justify-between max-w-4xl p-4 mx-auto text-sm md:p-8">
-          <p className="text-white">
-            Created by{` `}
+      <footer className="bg-primary text-thgrey">
+        <nav className="flex justify-between max-w-4xl px-4 mx-auto text-xs md:p-4">
+          <p className="text-thgrey">
+            A program by{` `}
             <a
               className="font-bold no-underline"
-              href="https://bryant.io"
+              href="https://www.thewildheartfoundation.org"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Taylor Bryant
+              WildHeart
             </a>
           </p>
 
           <p>
             <a
               className="font-bold text-white no-underline"
-              href="https://github.com/taylorbryant/gatsby-starter-tailwind"
+              href="/contribute"
               target="_blank"
               rel="noopener noreferrer"
             >
-              GitHub
+              Contribute
             </a>
           </p>
         </nav>
