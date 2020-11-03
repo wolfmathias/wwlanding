@@ -15,12 +15,12 @@ function AboutPage() {
     
       <section className="flex flex-col items-center md:flex-row">
         <div className="bg-white">
-          <div className="mx-2 mt-24 md:mt-0 p-4 md:w-2/3 ">
+          <div className="mx-2 mt-24 md:mt-0 p-4 lg:px-24">
             <blockquote className="pl-4 font-serif leading-loose text-justify border-l-4 border-gray-900">
               Enriching the lives of wild animals in captivity.
             </blockquote>
             <div className="float text-justify font-light tracking-wide leading-relaxed space-y-6 py-6">
-              <figure className="float-right w-2/3 mt-10">
+              <figure className="float-right w-2/3 p-2">
                 <img alt="Hippo playing with a ball" src={hippoToy} />
               </figure>
               <p className="text-left">
@@ -34,7 +34,7 @@ function AboutPage() {
                 Wildwish.org connects people with the animals their money is helping. Toys and enrichment are crowdsourced with microdonations, and donors are
                 notified when their animal gets the toy they conrtibuted to.
               </p>
-              <p>
+              <p className="clear-right">
                 This program is free for zoos and wildlife sanctuaries. We often get asked &quot;What&apos;s the catch?&quot; when working with a zoo to
                 provide enrichment. The answer is that there isn&apos;t one. The WildHeart Foundation is a passion project; an organization consisting
                 of me and some friends who love and work with wildlife. The projects we&apos;ve worked on have been acheivements on par with 
@@ -45,7 +45,7 @@ function AboutPage() {
               <p>
                 We do this because our hearts are wild.
               </p>
-              <cite className="block mt-4 text-xs font-bold text-right uppercase">
+              <cite className="block mt-4 text-xs font-bold text-left uppercase">
                 – Matt Plichta 
               </cite>
               <p>
