@@ -6,18 +6,18 @@ function Header() {
 
   //  TODO: 
   //  Add animation of header opacity turning to 80 or so onScroll
-  //  Add SVG of WildHeart logo
+  //  Fix positioning of site title
   return (
     <header className="bg-primary bg-opacity-0 md:bg-opacity-100 absolute md:static w-full">
       <div className="flex flex-wrap items-center justify-between max-w-4xl p-4 mx-auto lg-px-8">
         <Link to="/">
-
-            <img className="float-left object-contain h-16" src={logoSmall} alt={site.siteMetadata.title} />
-            <span className="text-thgrey text-sm hidden md:inline-block align-text-bottom">{site.siteMetadata.title}</span> 
+            <div className="grid-rows-3 cols-auto">
+            <img className="rows-span-3 float-left h-16" src={logoSmall} alt="wildwish.org" />
+            {/* <span className="object-bottom text-white">WildWish</span> */}
+            </div>
         </Link>
         <Link to="/">
         </Link>
-
         <button
           className="items-center block px-3 py-2 text-white border-2 border-white rounded md:hidden"
           onClick={() => toggleExpansion(!isExpanded)}
