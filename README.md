@@ -1,5 +1,5 @@
 # Cloned from Gatsby Starter Tailwind
-This placeholder landing page was thrown together in a day or so. (https://github.com/mattplichtawild/django-wildwish)[Check out the repo of the current app.]
+This placeholder landing page was thrown together in a day or so. [Check out the repo of the current app.](https://github.com/mattplichtawild/django-wildwish)
 
 # Gatsby Starter Tailwind
 
