@@ -75,15 +75,15 @@ class SignupPage extends Component {
                         Zoo Name
                     </label>
                     <input 
-                        className="w-full mb-6 form-input"
+                        className="w-full mb-2 form-input"
                         type="text"
                     >
-                    
                     </input>
+                    <p className="inline-block mb-2 text-xs font-thin tracking-tight">You&apos;ll get a link to create an account and add your animals when we launch.</p>
                 </div>
 
                 <label
-                    className="block my-2 text-xs font-bold uppercase"
+                    className="block mb-2 mt-4 text-xs font-bold uppercase"
                     htmlFor="message"
                 >
                     Message <span className="font-xs font-hairline">(optional)</span>
