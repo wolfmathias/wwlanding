@@ -23,7 +23,7 @@ class SignupPage extends Component {
         return (
             <Layout>
             <SEO
-                keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
+                keywords={[`wildwish`, `wildheart`, `signup`, `zoo`, `nonprofit`]}
                 title="Signup"
             />
             <section className="mt-24 md:mt-0">
@@ -92,7 +92,7 @@ class SignupPage extends Component {
                 <textarea
                     className="w-full mb-6 form-textarea"
                     id="message"
-                    placeholder="Tell us your favorite animal..."
+                    placeholder="What's your favorite animal?"
                     rows="8"
                 />
 
