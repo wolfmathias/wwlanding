@@ -18,7 +18,7 @@ function Header() {
           <Link to="/">
           </Link>
           <Link
-            className="block mt-4 text-white no-underline md:inline-block md:mt-0 md:ml-6"
+            className="block mt-4 text-xl text-tertiary uppercase font-bold font-sans no-underline md:inline-block md:mt-0 md:ml-6"
             key='Home'
             to='/'
             >
