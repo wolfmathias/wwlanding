@@ -4,8 +4,22 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 
 class SignupPage extends Component {
+    constructor() {
+        super();
     
+        this.state = { checked: false };
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+    handleChange() {
+        this.setState({
+          checked: !this.state.checked
+        })
+    }
+
     render () {
+        const hidden = this.state.checked ? '' : 'hidden';
+
         return (
             <Layout>
             <SEO
@@ -15,16 +29,7 @@ class SignupPage extends Component {
             <section className="mt-24 md:mt-0">
                 <form className="mx-auto py-8 w-3/4 lg:w-1/3">
                 <p className="mb-8 leading-loose">
-                    Sign up to get notified when wildwish.org launches.{` `}
-                    <a
-                    className="font-bold text-gray-700 no-underline"
-                    href="https://github.com/tailwindcss/custom-forms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                    Read the docs
-                    </a>
-                    .
+                    Sign up to get notified when wildwish.org launches.
                 </p>
 
                 <label
@@ -58,13 +63,24 @@ class SignupPage extends Component {
                 <input 
                     className="form-checkbox"
                     type="checkbox"
+                    onChange={this.handleChange}
                 />
 
                 <label className="inline-block px-2 mb-2 text-xs font-thin tracking-tight">
-                    Contact me about adding my animals to the pilot program.
+                    Add my animals to the pilot program.
                 </label>
 
-                
+                <div className={ hidden }>
+                    <label className="block my-2 text-xs font-bold uppercase">
+                        Zoo Name
+                    </label>
+                    <input 
+                        className="w-full mb-6 form-input"
+                        type="text"
+                    >
+                    
+                    </input>
+                </div>
 
                 <label
                     className="block my-2 text-xs font-bold uppercase"
