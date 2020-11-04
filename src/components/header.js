@@ -9,7 +9,7 @@ function Header() {
   //  Fix positioning of site title
   return (
     <header className="bg-primary bg-opacity-75 md:bg-opacity-100 absolute md:static w-full">
-      <div className="flex flex-wrap items-center justify-between max-w-4xl p-4 mx-auto lg-px-8">
+      <div className="flex flex-wrap items-center justify-between max-w-6xl p-4 mx-auto lg-px-8">
         <Link to="/">
             <img className="rows-span-3 float-left h-16" src={logoSmall} alt="wildwish.org" />
         </Link>
