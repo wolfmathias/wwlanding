@@ -61,7 +61,7 @@ function Header() {
             // }
           ].map((link) => (
             <Link
-              className="block mt-4 text-white no-underline md:inline-block md:mt-0 md:ml-6"
+              className="block mt-4 text-white font-semibold tracking-widest no-underline md:inline-block md:mt-0 md:ml-6"
               key={link.title}
               to={link.route}
             >
