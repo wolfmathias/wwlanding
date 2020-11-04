@@ -39,18 +39,17 @@ function AboutPage() {
                 provide enrichment. The answer is that there isn&apos;t one. The WildHeart Foundation is a passion project; an organization consisting
                 of me and some friends who love and work with wildlife. The projects we&apos;ve worked on have been acheivements on par with 
                 larger nonprofits, but WildHeart is still ran from coffee shops on weekends (except in times of pandemic), and projects are
-                scheduled around day jobs or worked on using vacation. We do this because we want to see happy animals. I love showing friends pictures
-                of animals playing with a toy we sent or swimming in a pool we helped build.
+                scheduled around day jobs or worked on using vacation. We do this because we want to see happy animals.
               </p>
               <p>
                 We do this because our hearts are wild.
               </p>
-              <cite className="block mt-4 text-xs font-bold text-left uppercase">
-                – Matt Plichta 
+              <cite className="block mt-4 p-4 text-xs font-bold text-left uppercase">
+                – Matt Plichta, Founder
               </cite>
-              <p>
-                Sign up to get notified about updates and to add your animals to the pilot program.
-              </p>
+              <a href="/signup" className="p-4  uppercase text-xs font-medium text-blue-500 underline">
+                Sign up for the program
+              </a>
             </div>
           </div>
         </div>
