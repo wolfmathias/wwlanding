@@ -15,7 +15,7 @@ function AboutPage() {
     
       <section className="flex flex-col items-center md:flex-row">
         <div className="bg-white">
-          <div className="mx-2 mt-24 md:mt-0 p-4 lg:px-24">
+          <div className="mx-2 mt-32 md:mt-8 p-4 lg:px-24">
             <blockquote className="pl-4 font-serif leading-loose text-justify border-l-4 border-gray-900">
               Enriching the lives of wild animals in captivity.
             </blockquote>
