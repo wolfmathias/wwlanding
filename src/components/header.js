@@ -9,12 +9,22 @@ function Header() {
   //  Fix positioning of site title
   return (
     <header className="bg-primary bg-opacity-75 md:bg-opacity-100 absolute md:static w-full">
+      
       <div className="flex flex-wrap items-center justify-between max-w-6xl p-4 mx-auto lg-px-8">
-        <Link to="/">
-            <img className="rows-span-3 float-left h-16" src={logoSmall} alt="wildwish.org" />
-        </Link>
-        <Link to="/">
-        </Link>
+        <div className="flex flex-wrap items-center">
+          <Link to="/">
+              <img className="rows-span-3 float-left h-16" src={logoSmall} alt="wildwish.org" />
+          </Link>
+          <Link to="/">
+          </Link>
+          <Link
+            className="block mt-4 text-white no-underline md:inline-block md:mt-0 md:ml-6"
+            key='Home'
+            to='/'
+            >
+            wildwish.org
+          </Link>
+        </div>
         <div className="grid-rows-auto md:hidden">
         <button
           className="items-center block px-3 py-2 text-white border-2 border-white rounded"
