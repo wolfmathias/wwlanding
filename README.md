@@ -1,3 +1,6 @@
+# Cloned from Gatsby Starter Tailwind
+This placeholder landing page was thrown together in a day or so. (https://github.com/mattplichtawild/django-wildwish)[Check out the repo of the current app.]
+
 # Gatsby Starter Tailwind
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
