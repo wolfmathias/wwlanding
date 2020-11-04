@@ -45,10 +45,10 @@ function Header() {
               route: `/signup`,
               title: `Sign Up`,
             },
-            {
-              route: `/contribute`,
-              title: `Contribute`
-            }
+            // {
+            //   route: `/contribute`,
+            //   title: `Contribute`
+            // }
           ].map((link) => (
             <Link
               className="block mt-4 text-white no-underline md:inline-block md:mt-0 md:ml-6"
