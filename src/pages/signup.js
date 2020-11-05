@@ -1,15 +1,37 @@
-import React, { Component } from "react";
-
+import React from "react";
+import { navigate } from 'gatsby-link'
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 
-function SignUpPage() {
-    const [state, setState] = React.useState({})
+function encode(data) {
+    return Object.keys(data)
+      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&')
+}
 
-    const handleChange = (e) => {
-      setState({ ...state, checked: !checked })
+function SignUpPage() {
+    const [checked, setState] = React.useState(False)
+
+    const handleChange = () => {
+      setState({ checked: !checked })
     }
-    const hidden = state.checked ? '' : 'hidden';
+
+    const hidden = checked ? '' : 'hidden';
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const form = e.target
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode({
+            'form-name': form.getAttribute('name'),
+            ...state,
+          }),
+        })
+          .then(() => navigate(form.getAttribute('action')))
+          .catch((error) => alert(error))
+    }
 
     return (
         <Layout>
@@ -18,10 +40,21 @@ function SignUpPage() {
             title="Signup"
         />
         <section className="mt-24 md:mt-0">
-            <form className="mx-auto py-8 w-3/4 lg:w-1/3" netlify>
+            <form 
+                className="mx-auto py-8 w-3/4 lg:w-1/3" 
+                name="contact"
+                method="post"
+                action="/signup/"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+            >
             <p className="mb-8 leading-loose">
                 Sign up to get notified when wildwish.org launches.
             </p>
+
+            {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+            <input type="hidden" name="form-name" value="signup" />
 
             <label
                 className="block mb-2 text-xs font-bold uppercase"
