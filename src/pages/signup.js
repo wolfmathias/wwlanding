@@ -82,6 +82,7 @@ class SignUpPage extends React.Component {
                     id="first-name"
                     placeholder="Paul"
                     type="text"
+                    onSubmit={this.handleChange}
                 />
 
                 <label
@@ -96,6 +97,7 @@ class SignUpPage extends React.Component {
                     id="last-name"
                     placeholder="Blart"
                     type="text"
+                    onSubmit={this.handleChange}
                 />
 
                 <label
@@ -110,6 +112,7 @@ class SignUpPage extends React.Component {
                     id="email"
                     placeholder="Use your work email if you are a zookeeper"
                     type="email"
+                    onSubmit={this.handleChange}
                 />
 
                 <input 
@@ -129,6 +132,7 @@ class SignUpPage extends React.Component {
                     <input 
                         className="w-full mb-2 form-input"
                         type="text"
+                        onSubmit={this.handleChange}
                     >
                     </input>
                     <p className="inline-block mb-2 text-xs font-thin tracking-tight">You&apos;ll get a link to create an account and add your animals when we launch.</p>
@@ -146,6 +150,7 @@ class SignUpPage extends React.Component {
                     id="message"
                     placeholder="What's your favorite animal?"
                     rows="8"
+                    onSubmit={this.handleChange}
                 />
 
                 <button 
