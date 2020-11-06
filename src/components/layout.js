@@ -1,19 +1,19 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { graphql, useStaticQuery } from "gatsby";
+// import { graphql, useStaticQuery } from "gatsby";
 
 import Header from "./header";
 
 function Layout({ children }) {
-  const { site } = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
+  // const { site } = useStaticQuery(graphql`
+  //   query SiteTitleQuery {
+  //     site {
+  //       siteMetadata {
+  //         title
+  //       }
+  //     }
+  //   }
+  // `);
 
   console.log("Oh hey! Inspecting my elements, huh? Why not help me build this app? (I'm also looking for work) If you're reading this it means I haven't gotten to the frontend yet. Check out my github (github.com/mattplichtawild) or email me at mattplichtawild@gmail.com to help me help some animals :)")
 
@@ -27,10 +27,10 @@ function Layout({ children }) {
       </main>
 
       <footer className="bg-primary text-thgrey md:p-4">
-        <span className="flex justify-between max-w-4xl px-4 mx-auto text-xs">
+        {/* <span className="flex justify-between max-w-6xl px-4 mx-auto text-xs">
           {site.siteMetadata.title}
-        </span>
-        <nav className="flex justify-between max-w-4xl px-4 mx-auto text-xs">
+        </span> */}
+        <nav className="flex justify-between max-w-6xl px-4 mx-auto text-xs">
           <p className="text-thgrey">
             A program by{` `}
             <a
