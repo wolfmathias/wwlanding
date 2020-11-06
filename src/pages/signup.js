@@ -57,19 +57,28 @@ class SignUpPage extends React.Component {
             <section className="mt-24 md:mt-0">
                 <form 
                     className="mx-auto py-8 w-3/4 lg:w-1/3" 
-                    name="contact"
+                    name="signup"
                     method="post"
                     action="/signup/"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={this.handleSubmit}
                 >
+
+                {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+                <input type="hidden" name="form-name" value="signup" />
+                <p hidden>
+                    <label>
+                        Don’t fill this out: <input name="bot-field" onChange={this.handleChange} />
+                    </label>
+                </p>
+
                 <p className="mb-8 leading-loose">
                     Sign up to get notified when wildwish.org launches.
                 </p>
 
                 {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-                <input type="hidden" name="form-name" value="signup" />
+                <input type="hidden" name="form-name" value="signup"/>
 
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
