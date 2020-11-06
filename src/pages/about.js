@@ -27,12 +27,12 @@ function AboutPage() {
                 That was the mission when I started WildHeart in a coffee shop in 2015, and it&apos;s the mission now.
               </p>
               <p className="clear">
-                The core work was improving enclosures with pools, furniture, and other additions. But the foundation was built on sending toys
-                to animals in zoos around the world. Zookeepers would reach out on social media, and WildHeart would send a toy for their animals.
+                The core work is improving enclosures with pools, furniture, and other additions. But the foundation was built on providing enrichment for
+                animals in zoos around the world. Zookeepers would reach out on social media, and WildHeart would send them a toy.
               </p>
               <p>
                 Wildwish.org connects people with the animals their money is helping. Toys and enrichment are crowdsourced with microdonations, and donors are
-                notified when their animal gets the toy they helped buy. No more need to message us on Facebook and wait while we collect donations 
+                notified when their animal gets the toy they helped buy. No more need for zookeepers to message us on Facebook and then wait while we collect donations 
                 to fund a piece of enrichment.
               </p>
               <p className="clear-right">
