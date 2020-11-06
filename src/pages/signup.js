@@ -59,7 +59,7 @@ class SignUpPage extends React.Component {
                     className="mx-auto py-8 w-3/4 lg:w-1/3" 
                     name="signup"
                     method="post"
-                    action="/signup/"
+                    // action="/signup/"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     onSubmit={this.handleSubmit}
