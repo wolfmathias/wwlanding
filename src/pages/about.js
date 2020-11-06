@@ -39,8 +39,8 @@ function AboutPage() {
                 This program is free for zoos and wildlife sanctuaries. We often get asked &quot;What&apos;s the catch?&quot; when working with a zoo to
                 provide enrichment. The answer is that there isn&apos;t one. The WildHeart Foundation is a passion project; an organization consisting
                 of me and some friends who love and work with wildlife. The projects we&apos;ve worked on have been acheivements on par with 
-                larger nonprofits, but WildHeart is still ran from coffee shops on weekends (except in times of pandemic), and projects are
-                scheduled around day jobs or worked on using vacation. We do this because we want to see happy animals.
+                larger nonprofits, but WildHeart is still ran from coffee shops on weekends (except in times of pandemic), and volunteering is
+                scheduled around day jobs or while using vacation time. We do this because we want to see happy animals.
               </p>
               <p>
                 We do this because our hearts are wild.
