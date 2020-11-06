@@ -32,12 +32,13 @@ class SignUpPage extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target
+        console.log(this.state)
         fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: encode({
                 'form-name': form.getAttribute('name'),
-                'first-name': form.input
+                ...this.state,
             }),
         })
         .then(() => navigate(form.getAttribute('action')))
@@ -80,9 +81,10 @@ class SignUpPage extends React.Component {
                 <input
                     className="w-full mb-6 form-input"
                     id="first-name"
+                    name="first-name"
                     placeholder="Paul"
                     type="text"
-                    onSubmit={this.handleChange}
+                    onChange={this.handleChange}
                 />
 
                 <label
@@ -95,9 +97,10 @@ class SignUpPage extends React.Component {
                 <input
                     className="w-full mb-6 form-input"
                     id="last-name"
+                    name="last-name"
                     placeholder="Blart"
                     type="text"
-                    onSubmit={this.handleChange}
+                    onChange={this.handleChange}
                 />
 
                 <label
@@ -110,9 +113,10 @@ class SignUpPage extends React.Component {
                 <input
                     className="w-full mb-6 form-input"
                     id="email"
+                    name="email"
                     placeholder="Use your work email if you are a zookeeper"
                     type="email"
-                    onSubmit={this.handleChange}
+                    onChange={this.handleChange}
                 />
 
                 <input 
@@ -132,7 +136,8 @@ class SignUpPage extends React.Component {
                     <input 
                         className="w-full mb-2 form-input"
                         type="text"
-                        onSubmit={this.handleChange}
+                        name="zoo-name"
+                        onChange={this.handleChange}
                     >
                     </input>
                     <p className="inline-block mb-2 text-xs font-thin tracking-tight">You&apos;ll get a link to create an account and add your animals when we launch.</p>
@@ -148,9 +153,10 @@ class SignUpPage extends React.Component {
                 <textarea
                     className="w-full mb-6 form-textarea"
                     id="message"
+                    name="message"
                     placeholder="What's your favorite animal?"
                     rows="8"
-                    onSubmit={this.handleChange}
+                    onChange={this.handleChange}
                 />
 
                 <button 
