@@ -4,6 +4,7 @@
   "version": "4.0.0",
   "author": "Taylor Bryant <taylor@bryant.io>",
   "dependencies": {
+    "caniuse-lite": "^1.0.30001207",
     "gatsby": "2.24.91",
     "gatsby-plugin-manifest": "2.4.35",
     "gatsby-plugin-offline": "3.2.38",
