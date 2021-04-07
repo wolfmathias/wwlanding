@@ -2,6 +2,7 @@ import React from "react";
 import { navigate } from 'gatsby-link'
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+// import { checkPropTypes } from "prop-types";
 
 function encode(data) {
     return Object.keys(data)
@@ -9,13 +10,68 @@ function encode(data) {
       .join('&')
 }
 
+function AnimalFields() {
+    const [state, setState] = React.useState()
+    const handleChange = (e) => {
+        setState({...state, [e.target.name]: e.target.value})
+        console.log(state)
+    }
+
+    return (
+        <div>
+            <label className="block mb-2 text-xs font-bold uppercase" htmlFor="name">Name</label>
+            <input className="w-full mb-6 form-input" type="text" name="name" id="name" onChange={handleChange}/>
+
+            <label className="block mb-2 text-xs font-bold uppercase" htmlFor="species">Species</label>
+            <input className="w-full mb-6 form-input" type="text" name="species" id="species" onChange={handleChange}/>
+
+            <label className="block mb-2 text-xs font-bold uppercase" htmlFor="bio">Bio</label>
+            <input className="w-full mb-6 form-input" type="text-area" name="bio" id="bio" onChange={handleChange}/>
+
+
+        </div>
+    )
+}
+
 class AnimalSignup extends React.Component {
     constructor() {
         super();
     
-        this.state = { checked: false };
+        this.state = getInitialState();
         this.handleCheck = this.handleCheck.bind(this);
-      }
+    }
+
+    getInitialState() {
+        const initialState = {
+            animalForm: {
+                zoo: {
+                    name: '',
+                    website: ''
+                },
+                user: {
+                    first_name: '',
+                    last_name: '',
+                    email: ''
+                },
+                animals: [ {
+                    name: '',
+                    species: '',
+                    dob: '',
+                    bio: '',
+                    toys: [ {url: ''}, {url: ''}, {url: ''} ],
+                    images: []
+                }, {
+                    name: '',
+                    species: '',
+                    dob: '',
+                    bio: '',
+                    toys: [ {url: ''}, {url: ''}, {url: ''} ],
+                    images: []
+                } ],
+            },
+            errors: {}
+        }
+    }
 
     handleCheck() {
         this.setState({
@@ -47,7 +103,8 @@ class AnimalSignup extends React.Component {
     
     
     render () {
-        const hidden = this.state.checked ? '' : 'hidden';
+        // const hidden = this.state.checked ? '' : 'hidden';
+
         return (
             <Layout>
             <SEO
@@ -128,6 +185,9 @@ class AnimalSignup extends React.Component {
                     onChange={this.handleChange}
                 />
 
+                
+                <AnimalFields />
+{/* 
                 <input 
                     className="form-checkbox"
                     type="checkbox"
@@ -166,8 +226,8 @@ class AnimalSignup extends React.Component {
                     placeholder="What's your favorite animal?"
                     rows="8"
                     onChange={this.handleChange}
-                />
-
+                /> 
+*/}
                 <button 
                     className="px-4 py-2 text-sm font-bold text-white bg-gray-700 border-b-4 border-gray-800 rounded hover:border-gray-700 hover:bg-gray-600"
                     type='submit'
