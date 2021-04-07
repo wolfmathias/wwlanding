@@ -24,7 +24,8 @@ function ThankYouPage() {
       <div className="text-center">
         <Link
             className="underline text-sm"
-            href="/"
+            // href="/"
+            to="/"
         >
             Go Back
         </Link> 
