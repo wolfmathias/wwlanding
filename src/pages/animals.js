@@ -97,6 +97,7 @@ class AnimalSignup extends React.Component {
     }
     
     renderAnimalInputs() {
+        // map through 'animals' object of state, then render inputs for each field
         return (
         <>
         <h2>Animals</h2>
@@ -106,9 +107,7 @@ class AnimalSignup extends React.Component {
                 <li key={i}>Animal {i + 1}
                 {Object.entries(e).map( ([k, v], ix) => {
                     if (typeof(v) === 'string') {
-                        // let inputStyle = (k == 'bio' ? 'textarea':'text')
                         return ( 
-                          
                             <div key={ix}>
                                 <label
                                 className="block mb-2 text-xs font-bold uppercase"
@@ -116,30 +115,45 @@ class AnimalSignup extends React.Component {
                                 >
                                     {k}
                                 </label>
-                                <input
-                                className="w-full mb-6 form-input"
-                                type="text"
+                                
+                                {k === 'bio' ? 
+                                // Use 'textarea' for bio input
+                                <textarea
+                                className="w-full h-24 mb-6 form-input"
+                                type='text'
                                 name={k}
                                 value={v}
                                 onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
                                 />
+                                :
+                                // Also check to see if 'text' or 'date' should be used for input
+                                <input
+                                className="w-full mb-6 form-input"
+                                type={k === 'dob' ? 'date':'text'}
+                                name={k}
+                                value={v}
+                                onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
+                                />
+                                }
                             </div>
                         )   
                     } else if (typeof(v) === 'object') {
+                        // 'animals' object may contain nested objects like toys and images
+                        // Check for those and map through them to return inputs for each
                         if (k === 'toys') {
-                            return v.map( (e, i) => {
+                            return v.map( (e, idx) => {
                                 return Object.entries(e).map( ([k, v], ix) => {
                                     return (
-                                    <div key={ix}>
+                                    <div className="ml-4" key={ix}>
                                     <label
                                     className="block mb-2 text-xs font-bold uppercase"
                                     htmlFor={k}
                                     >
-                                        Toy {i + 1} URL
+                                        Toy {idx + 1} URL
                                     </label>
                                     <input
                                     className="w-full mb-6 form-input"
-                                    type="text"
+                                    type="url"
                                     name={k}
                                     value={v}
                                     onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
@@ -241,7 +255,7 @@ class AnimalSignup extends React.Component {
                     type="email"
                     onChange={this.handleChange}
                 />
-                    
+            
                 {/* {
                     this.state.animalForm.animals.map( (e, i) => {
                         return Object.entries(e).forEach( ([k, v]) => {
