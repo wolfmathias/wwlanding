@@ -103,10 +103,10 @@ class AnimalSignup extends React.Component {
         <ul >
         {this.state.animalForm.animals.map( (e, i) => {
             return (
-                <li key={i}>{i + 1}
+                <li key={i}>Animal {i + 1}
                 {Object.entries(e).map( ([k, v], ix) => {
                     if (typeof(v) === 'string') {
-                        // let inputType = (k == 'bio' ? 'textarea':'text')
+                        // let inputStyle = (k == 'bio' ? 'textarea':'text')
                         return ( 
                           
                             <div key={ix}>
@@ -126,13 +126,29 @@ class AnimalSignup extends React.Component {
                             </div>
                         )   
                     } else if (typeof(v) === 'object') {
-                    let element = {
-                        name: k,
-                        value: v,
-                        key: ix
-                    }
-                    console.log(element)
-
+                        if (k === 'toys') {
+                            return v.map( (e, i) => {
+                                return Object.entries(e).map( ([k, v], ix) => {
+                                    return (
+                                    <div key={ix}>
+                                    <label
+                                    className="block mb-2 text-xs font-bold uppercase"
+                                    htmlFor={k}
+                                    >
+                                        Toy {i + 1} URL
+                                    </label>
+                                    <input
+                                    className="w-full mb-6 form-input"
+                                    type="text"
+                                    name={k}
+                                    value={v}
+                                    onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
+                                    />
+                                    </div>
+                                    )
+                                })
+                            });
+                        }
                     }
                 })}
             </li>
