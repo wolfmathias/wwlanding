@@ -10,35 +10,36 @@ function encode(data) {
       .join('&')
 }
 
-function AnimalFields() {
-    const [state, setState] = React.useState()
-    const handleChange = (e) => {
-        setState({...state, [e.target.name]: e.target.value})
-        console.log(state)
-    }
+// function AnimalFields() {
+//     const [state, setState] = React.useState()
+//     const handleChange = (e) => {
+//         setState({...state, [e.target.name]: e.target.value})
+//         console.log(state)
+//     }
 
-    return (
-        <div>
-            <label className="block mb-2 text-xs font-bold uppercase" htmlFor="name">Name</label>
-            <input className="w-full mb-6 form-input" type="text" name="name" id="name" onChange={handleChange}/>
+//     return (
+//         <div>
+//             <label className="block mb-2 text-xs font-bold uppercase" htmlFor="name">Name</label>
+//             <input className="w-full mb-6 form-input" type="text" name="name" id="name" onChange={handleChange}/>
 
-            <label className="block mb-2 text-xs font-bold uppercase" htmlFor="species">Species</label>
-            <input className="w-full mb-6 form-input" type="text" name="species" id="species" onChange={handleChange}/>
+//             <label className="block mb-2 text-xs font-bold uppercase" htmlFor="species">Species</label>
+//             <input className="w-full mb-6 form-input" type="text" name="species" id="species" onChange={handleChange}/>
 
-            <label className="block mb-2 text-xs font-bold uppercase" htmlFor="bio">Bio</label>
-            <input className="w-full mb-6 form-input" type="text-area" name="bio" id="bio" onChange={handleChange}/>
+//             <label className="block mb-2 text-xs font-bold uppercase" htmlFor="bio">Bio</label>
+//             <input className="w-full mb-6 form-input" type="text-area" name="bio" id="bio" onChange={handleChange}/>
 
 
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
 class AnimalSignup extends React.Component {
     constructor() {
         super();
     
-        this.state = getInitialState();
-        this.handleCheck = this.handleCheck.bind(this);
+        this.state = this.getInitialState();
+        // this.handleCheck = this.handleCheck.bind(this);
+        // console.log(this.state)
     }
 
     getInitialState() {
@@ -71,13 +72,14 @@ class AnimalSignup extends React.Component {
             },
             errors: {}
         }
+        return initialState
     }
 
-    handleCheck() {
-        this.setState({
-          checked: !this.state.checked
-        })
-    }
+    // handleCheck() {
+    //     this.setState({
+    //       checked: !this.state.checked
+    //     })
+    // }
 
     
     handleChange = (e) => {
@@ -101,6 +103,47 @@ class AnimalSignup extends React.Component {
         .catch((error) => alert(error))
     }
     
+    printAnimals() {
+        this.state.animalForm.animals.map( (e, i) => {
+          Object.entries(e).forEach( ([k, v]) => {
+            // if (typeof(v) === 'string') {
+                let inputType = (k == 'bio' ? 'textarea':'text')
+                console.log([k, v])
+                return ( 
+                    // {
+                    //     type: inputType,
+                    //     name: k,
+                    //     value: v,
+                    //     key: i
+                    // }
+                    <div key={i}>
+                        <label
+                        className="block mb-2 text-xs font-bold uppercase"
+                        htmlFor={String(k)}
+                        >
+                            {String(k)}
+                        </label>
+                        <input
+                        className="w-full mb-6 form-input"
+                        type={inputType}
+                        name={String(k)}
+                        value={String(v)}
+                        // onChange={ e => {this.handleAnimalChange(e, this.state.animalForm, i)} }
+                        />
+                    </div>
+                )   
+            // } else if (typeof(v) === 'object') {
+            //   let element = {
+            //     // type: inputType,
+            //     name: k,
+            //     value: v,
+            //     key: ix
+            //   }
+            //   console.log(element)
+            // }
+          })
+        })
+      }
     
     render () {
         // const hidden = this.state.checked ? '' : 'hidden';
@@ -131,7 +174,7 @@ class AnimalSignup extends React.Component {
                 </p>
 
                 <p className="mb-8 leading-loose">
-                    Add your animals and their wishes to the pilot program!
+                    Add your animals and their wishes to the pilot program
                 </p>
 
                 {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
@@ -184,9 +227,8 @@ class AnimalSignup extends React.Component {
                     type="email"
                     onChange={this.handleChange}
                 />
-
-                
-                <AnimalFields />
+                    
+                {this.printAnimals()}
 {/* 
                 <input 
                     className="form-checkbox"
