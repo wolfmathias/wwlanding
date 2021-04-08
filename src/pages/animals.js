@@ -108,7 +108,12 @@ class AnimalSignup extends React.Component {
           Object.entries(e).forEach( ([k, v]) => {
             if (typeof(v) === 'string') {
                 let inputType = (k == 'bio' ? 'textarea':'text')
-                console.log([k, v])
+                let element = {
+                    key: i,
+                    name: k,
+                    value: v
+                }
+                console.log(element)
                 return ( 
                     <div key={i}>
                         <label
@@ -128,10 +133,9 @@ class AnimalSignup extends React.Component {
                 )   
             } else if (typeof(v) === 'object') {
               let element = {
-                // type: inputType,
+                key: i,
                 name: k,
-                value: v,
-                key: ix
+                value: v
               }
               console.log(element)
             }
@@ -222,7 +226,7 @@ class AnimalSignup extends React.Component {
                     onChange={this.handleChange}
                 />
                     
-                {
+                {/* {
                     this.state.animalForm.animals.map( (e, i) => {
                         return Object.entries(e).forEach( ([k, v]) => {
                           if (typeof(v) === 'string') {
@@ -263,8 +267,8 @@ class AnimalSignup extends React.Component {
                           }
                         })
                     })
-                }
-                {/* {this.renderAnimalInputs()} */}
+                } */}
+                {this.renderAnimalInputs()}
 {/* 
                 <input 
                     className="form-checkbox"
