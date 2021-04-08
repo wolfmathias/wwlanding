@@ -105,41 +105,38 @@ class AnimalSignup extends React.Component {
     
     renderAnimalInputs() {
         return this.state.animalForm.animals.map( (e, i) => {
-          Object.entries(e).forEach( ([k, v]) => {
-            if (typeof(v) === 'string') {
-                let inputType = (k == 'bio' ? 'textarea':'text')
-                let element = {
-                    key: i,
-                    name: k,
-                    value: v
-                }
-                console.log(element)
-                return ( 
-                    <div key={i}>
-                        <label
-                        className="block mb-2 text-xs font-bold uppercase"
-                        htmlFor={k}
-                        >
-                            {k}
-                        </label>
-                        <input
-                        className="w-full mb-6 form-input"
-                        type={inputType}
-                        name={k}
-                        value={v}
-                        onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
-                        />
-                    </div>
-                )   
-            } else if (typeof(v) === 'object') {
-              let element = {
-                key: i,
-                name: k,
-                value: v
-              }
-              console.log(element)
-            }
-          })
+            return (
+                <div key={i}>
+                {Object.entries(e).map( ([k, v], ix) => {
+                    if (typeof(v) === 'string') {
+                        return ( 
+                            <div key={ix}>
+                            <label
+                            className="block mb-2 text-xs font-bold uppercase"
+                            htmlFor={k}
+                            >
+                                {k}
+                            </label>
+                            <input
+                            className="w-full mb-6 form-input"
+                            type="text"
+                            name={k}
+                            value={v}
+                            onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
+                            />
+                            </div>
+                        )   
+                    } else if (typeof(v) === 'object') {
+                    let element = {
+                        key: i,
+                        name: k,
+                        value: v
+                    }
+                    console.log(element)
+                    }
+                })}
+                </div>
+            )
         })
       }
     
