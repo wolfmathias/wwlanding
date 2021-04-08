@@ -108,7 +108,13 @@ class AnimalSignup extends React.Component {
             return (
                 <div key={i}>
                 {Object.entries(e).map( ([k, v], ix) => {
-                    if (typeof(v) === 'string') {
+                    // if (typeof(v) === 'string') {
+                    switch(k) {
+                    case 'toys':
+                        break
+                    case 'images':
+                        break
+                    default:
                         return ( 
                             <div key={ix}>
                             <label
@@ -126,15 +132,9 @@ class AnimalSignup extends React.Component {
                             />
                             </div>
                         )   
-                    } else if (typeof(v) === 'object') {
-                    let element = {
-                        key: i,
-                        name: k,
-                        value: v
                     }
-                    console.log(element)
-                    }
-                })}
+                }
+                )}
                 </div>
             )
         })
