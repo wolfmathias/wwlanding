@@ -75,13 +75,6 @@ class AnimalSignup extends React.Component {
         return initialState
     }
 
-    // handleCheck() {
-    //     this.setState({
-    //       checked: !this.state.checked
-    //     })
-    // }
-
-    
     handleChange = (e) => {
         this.setState({ ...this.state, [e.target.name]: e.target.value })
     }
@@ -104,40 +97,50 @@ class AnimalSignup extends React.Component {
     }
     
     renderAnimalInputs() {
-        return this.state.animalForm.animals.map( (e, i) => {
+        return (
+        <>
+        <h2>Animals</h2>
+        <ul >
+        {this.state.animalForm.animals.map( (e, i) => {
             return (
-                <div key={i}>
+                <li key={i}>{i + 1}
                 {Object.entries(e).map( ([k, v], ix) => {
-                    // if (typeof(v) === 'string') {
-                    switch(k) {
-                    case 'toys':
-                        break
-                    case 'images':
-                        break
-                    default:
+                    if (typeof(v) === 'string') {
+                        // let inputType = (k == 'bio' ? 'textarea':'text')
                         return ( 
+                          
                             <div key={ix}>
-                            <label
-                            className="block mb-2 text-xs font-bold uppercase"
-                            htmlFor={k}
-                            >
-                                {k}
-                            </label>
-                            <input
-                            className="w-full mb-6 form-input"
-                            type="text"
-                            name={k}
-                            value={v}
-                            onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
-                            />
+                                <label
+                                className="block mb-2 text-xs font-bold uppercase"
+                                htmlFor={k}
+                                >
+                                    {k}
+                                </label>
+                                <input
+                                className="w-full mb-6 form-input"
+                                type="text"
+                                name={k}
+                                value={v}
+                                onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
+                                />
                             </div>
                         )   
+                    } else if (typeof(v) === 'object') {
+                    let element = {
+                        name: k,
+                        value: v,
+                        key: ix
                     }
-                }
-                )}
-                </div>
+                    console.log(element)
+
+                    }
+                })}
+            </li>
             )
-        })
+        })}
+        </ul>
+        </>
+        )
       }
     
     render () {
@@ -253,14 +256,14 @@ class AnimalSignup extends React.Component {
                                       />
                                   </div>
                               )   
-                          // } else if (typeof(v) === 'object') {
-                          //   let element = {
-                          //     // type: inputType,
-                          //     name: k,
-                          //     value: v,
-                          //     key: ix
-                          //   }
-                          //   console.log(element)
+                          } else if (typeof(v) === 'object') {
+                            let element = {
+                              // type: inputType,
+                              name: k,
+                              value: v,
+                              key: ix
+                            }
+                            console.log(element)
                           }
                         })
                     })
