@@ -96,6 +96,40 @@ class AnimalSignup extends React.Component {
         .catch((error) => alert(error))
     }
     
+    handleInputChange = (e , object , type, ix, iy) => {
+        // object = this.state.animalForm.animals[0]
+        // e.name = 'name'
+        // e.value = 'Shirkan'
+
+        // object = this.state.animalForm.user
+        // e.name = 'last_name'
+        // e.value = 'Blart'
+
+       
+        const animalForm = this.state.animalForm;
+        let key = e.target.name;
+        let value = e.target.value;
+        object[key] = value;
+
+        console.log(this.state.animalForm)
+
+
+        
+        if(type === 'animal'){
+            animalForm.animals[ix] = object
+        } else if (type === 'user'){
+            animalForm.user = object
+        } else if (type === 'toy'){
+            animalForm.animals[ix].toys[iy] = object
+        }
+
+        this.setState({
+          animalForm : animalForm
+        });
+
+        console.log(this.state.animalForm)
+    }
+
     renderAnimalInputs() {
         // map through 'animals' object of state, then render inputs for each field
         return (
@@ -123,16 +157,16 @@ class AnimalSignup extends React.Component {
                                 type='text'
                                 name={k}
                                 value={v}
-                                onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
+                                onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i], 'animal', i)} }
                                 />
                                 :
                                 // Also check to see if 'text' or 'date' should be used for input
                                 <input
-                                className="w-full mb-6 form-input"
+                                className="w-full md:w-1/3 mb-6 form-input"
                                 type={k === 'dob' ? 'date':'text'}
                                 name={k}
                                 value={v}
-                                onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
+                                onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i], 'animal', i)} }
                                 />
                                 }
                             </div>
@@ -156,7 +190,7 @@ class AnimalSignup extends React.Component {
                                     type="url"
                                     name={k}
                                     value={v}
-                                    onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
+                                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i].toys[idx], 'toy', i, idx)} }
                                     />
                                     </div>
                                     )
@@ -184,7 +218,7 @@ class AnimalSignup extends React.Component {
             />
             <section className="mt-24 md:mt-0">
                 <form 
-                    className="mx-auto py-8 w-3/4 lg:w-1/3" 
+                    className="mx-auto py-8 w-3/4 lg:w-1/2" 
                     name="signup"
                     method="post"
                     action="/thanks/"
@@ -210,18 +244,18 @@ class AnimalSignup extends React.Component {
 
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
-                    htmlFor="first-name"
+                    htmlFor="first_name"
                 >
                     First Name
                 </label>
 
                 <input
                     className="w-full mb-6 form-input"
-                    id="first-name"
-                    name="first-name"
+                    id="first_name"
+                    name="first_name"
                     placeholder="Paul"
                     type="text"
-                    onChange={this.handleChange}
+                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
 
                 <label
@@ -233,11 +267,11 @@ class AnimalSignup extends React.Component {
 
                 <input
                     className="w-full mb-6 form-input"
-                    id="last-name"
-                    name="last-name"
+                    id="last_name"
+                    name="last_name"
                     placeholder="Blart"
                     type="text"
-                    onChange={this.handleChange}
+                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
 
                 <label
@@ -253,7 +287,7 @@ class AnimalSignup extends React.Component {
                     name="email"
                     placeholder="Use your work email if you are a zookeeper"
                     type="email"
-                    onChange={this.handleChange}
+                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
             
                 {/* {
