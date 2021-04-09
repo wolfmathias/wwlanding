@@ -96,6 +96,30 @@ class AnimalSignup extends React.Component {
         .catch((error) => alert(error))
     }
     
+    deleteAnimal = i => e => {
+        e.preventDefault()
+        const animalForm = this.state.animalForm
+        let animals = [
+          ...animalForm.animals.slice(0, i),
+          ...animalForm.animals.slice(i + 1)
+        ]
+
+        animalForm.animals = animals
+
+        this.setState({
+          animalForm: animalForm 
+        })
+        console.log(animalForm)
+    }
+    
+    addAnimal = e => {
+    e.preventDefault()
+    let animals = this.state.animalForm.animals.concat([''])
+    this.setState({
+        animals
+    })
+    }
+
     handleInputChange = (e , object , type, ix, iy) => {
         // object = this.state.animalForm.animals[0]
         // e.name = 'name'
@@ -138,7 +162,8 @@ class AnimalSignup extends React.Component {
         <ul >
         {this.state.animalForm.animals.map( (e, i) => {
             return (
-                <li key={i}>Animal {i + 1}
+                <li key={i}>{i + 1}
+                <button onClick={this.deleteAnimal(i)}>X</button>
                 {Object.entries(e).map( ([k, v], ix) => {
                     if (typeof(v) === 'string') {
                         return ( 
@@ -169,6 +194,7 @@ class AnimalSignup extends React.Component {
                                 onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i], 'animal', i)} }
                                 />
                                 }
+                                
                             </div>
                         )   
                     } else if (typeof(v) === 'object') {
@@ -199,10 +225,12 @@ class AnimalSignup extends React.Component {
                         }
                     }
                 })}
+                
             </li>
             )
         })}
         </ul>
+        <button onClick={this.addAnimal}>Add Animal</button>
         </>
         )
       }
