@@ -109,7 +109,6 @@ class AnimalSignup extends React.Component {
         this.setState({
           animalForm: animalForm 
         })
-        console.log(animalForm)
     }
     
     addAnimal = e => {
@@ -140,16 +139,11 @@ class AnimalSignup extends React.Component {
         // e.name = 'last_name'
         // e.value = 'Blart'
 
-       
         const animalForm = this.state.animalForm;
         let key = e.target.name;
         let value = e.target.value;
         object[key] = value;
-
-        console.log(this.state.animalForm)
-
-
-        
+  
         if(type === 'animal'){
             animalForm.animals[ix] = object
         } else if (type === 'user'){
@@ -161,8 +155,6 @@ class AnimalSignup extends React.Component {
         this.setState({
           animalForm : animalForm
         });
-
-        console.log(this.state.animalForm)
     }
 
     renderAnimalInputs() {
