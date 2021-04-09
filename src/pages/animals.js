@@ -114,10 +114,21 @@ class AnimalSignup extends React.Component {
     
     addAnimal = e => {
     e.preventDefault()
-    let animals = this.state.animalForm.animals.concat([''])
+    const animalForm = this.state.animalForm
+    const animal = {
+        name: '',
+        species: '',
+        dob: '',
+        bio: '',
+        toys: [ {url: ''}, {url: ''}, {url: ''} ],
+        images: []
+    }
+    animalForm.animals = this.state.animalForm.animals.concat(animal)
+    
     this.setState({
-        animals
+        animalForm: animalForm
     })
+
     }
 
     handleInputChange = (e , object , type, ix, iy) => {
