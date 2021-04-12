@@ -95,40 +95,57 @@ class AnimalSignup extends React.Component {
         .then(() => navigate(form.getAttribute('action')))
         .catch((error) => alert(error))
     }
-    
-    deleteAnimal = i => e => {
+
+    deleteObject = (type, ix, iy) => e => {
         e.preventDefault()
         const animalForm = this.state.animalForm
-        let animals = [
-          ...animalForm.animals.slice(0, i),
-          ...animalForm.animals.slice(i + 1)
-        ]
+        
+        if (type === 'animal') {
+            let newArray = [
+                ...animalForm.animals.slice(0, ix),
+                ...animalForm.animals.slice(ix + 1)
+            ]
 
-        animalForm.animals = animals
+            animalForm.animals = newArray            
+        } else if (type === 'toy') {
+            let newArray = [
+                ...animalForm.animals[ix].toys.slice(0, iy),
+                ...animalForm.animals[ix].toys.slice(iy + 1)
+            ]
+
+            animalForm.animals[ix].toys = newArray
+        }
 
         this.setState({
-          animalForm: animalForm 
-        })
-    }
+            animalForm: animalForm
+        });
+    };
     
-    addAnimal = e => {
-    e.preventDefault()
-    const animalForm = this.state.animalForm
-    const animal = {
-        name: '',
-        species: '',
-        dob: '',
-        bio: '',
-        toys: [ {url: ''}, {url: ''}, {url: ''} ],
-        images: []
-    }
-    animalForm.animals = this.state.animalForm.animals.concat(animal)
-    
-    this.setState({
-        animalForm: animalForm
-    })
+    addObject = (type) => e => {
+        e.preventDefault()
+        const animalForm = this.state.animalForm
 
-    }
+        if (type === 'animal') {
+            const animal = {
+                name: '',
+                species: '',
+                dob: '',
+                bio: '',
+                toys: [ {url: ''}, {url: ''}, {url: ''} ],
+                images: []
+            }
+            animalForm.animals = this.state.animalForm.animals.concat(animal)
+        } else if (type === 'toy') {
+            const toy = {
+                url: ''
+            }
+            animalForm.toys = this.state.animalForm.toys.concat(toy)
+        }
+        
+        this.setState({
+            animalForm: animalForm
+        });
+    };
 
     handleInputChange = (e , object , type, ix, iy) => {
         // object = this.state.animalForm.animals[0]
@@ -166,7 +183,7 @@ class AnimalSignup extends React.Component {
         {this.state.animalForm.animals.map( (e, i) => {
             return (
                 <li key={i}>{i + 1}
-                <button onClick={this.deleteAnimal(i)}>X</button>
+                <button onClick={this.deleteObject('animal', i)}>X</button>
                 {Object.entries(e).map( ([k, v], ix) => {
                     if (typeof(v) === 'string') {
                         return ( 
@@ -205,15 +222,17 @@ class AnimalSignup extends React.Component {
                         // Check for those and map through them to return inputs for each
                         if (k === 'toys') {
                             return v.map( (e, idx) => {
-                                return Object.entries(e).map( ([k, v], ix) => {
+                                return Object.entries(e).map( ([k, v], iy) => {
                                     return (
-                                    <div className="ml-4" key={ix}>
+                                    <div className="ml-4" key={iy}>
+                                    
                                     <label
                                     className="block mb-2 text-xs font-bold uppercase"
                                     htmlFor={k}
                                     >
                                         Toy {idx + 1} URL
                                     </label>
+                                    <button onClick={this.deleteObject('toy', i, iy)}>X</button>
                                     <input
                                     className="w-full mb-6 form-input"
                                     type="url"
@@ -225,6 +244,8 @@ class AnimalSignup extends React.Component {
                                     )
                                 })
                             });
+                        } else if (k === 'images') {
+
                         }
                     }
                 })}
@@ -233,7 +254,7 @@ class AnimalSignup extends React.Component {
             )
         })}
         </ul>
-        <button onClick={this.addAnimal}>Add Animal</button>
+        <button onClick={this.addObject('animal')}>Add Animal</button>
         </>
         )
       }
