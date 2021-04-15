@@ -276,7 +276,7 @@ class AnimalSignup extends React.Component {
                         // Check for those and map through them to return inputs for each
                         if (k === 'toys') {
                             return (
-                                <div key={ix}>
+                                <div className="mt-4 mb-4" key={ix}>
                                 <label className="block mb-2 text-xs font-bold uppercase">Toys</label>
                                 {v.map( (e, idx) => {
                                     return Object.entries(e).map( ([k, v], iy) => {
@@ -289,7 +289,7 @@ class AnimalSignup extends React.Component {
                                         >
                                             Toy {idx + 1} URL
                                         </label>
-                                        <button onClick={this.deleteObject('toy', i, iy)}>X</button>
+                                        <button onClick={this.deleteObject('toy', i, idx)}>X</button>
                                         <input
                                         className="w-full mb-6 form-input"
                                         type="url"
@@ -312,6 +312,7 @@ class AnimalSignup extends React.Component {
                                     getUploadParams={this.getUploadParams}
                                     onChangeStatus={(file, status, fileList) => this.handleChangeStatus(file, status, fileList, i)}
                                     // onSubmit={this.handleDropSubmit}
+                                    inputContent="Drag Files or Click to Upload"
                                     accept="image/*,audio/*,video/*"
                                 />                                
                                 </div>
