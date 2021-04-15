@@ -145,7 +145,7 @@ class AnimalSignup extends React.Component {
         });
     };
     
-    addObject = (type) => e => {
+    addObject = (type, i) => e => {
         e.preventDefault()
         const animalForm = this.state.animalForm
 
@@ -155,15 +155,15 @@ class AnimalSignup extends React.Component {
                 species: '',
                 dob: '',
                 bio: '',
+                images: [],
                 toys: [ {url: ''}, {url: ''}, {url: ''} ],
-                images: []
             }
             animalForm.animals = this.state.animalForm.animals.concat(animal)
         } else if (type === 'toy') {
             const toy = {
                 url: ''
             }
-            animalForm.toys = this.state.animalForm.toys.concat(toy)
+            animalForm.animals[i].toys = this.state.animalForm.animals[i].toys.concat(toy)
         }
         
         this.setState({
@@ -197,13 +197,12 @@ class AnimalSignup extends React.Component {
           animalForm : animalForm
         });
     }
-
-    
+   
     // specify upload params and url for your files
     // getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
     getUploadParams = () => { return { url: 'https://httpbin.org/post' } }
 
-    // called every time a file's `status` changes
+    // called every time a dropzone file's `status` changes
     handleChangeStatus = (file, status, fileList, i) => { 
         console.log(i, status, file, fileList) 
         const animalForm = this.state.animalForm
@@ -211,13 +210,9 @@ class AnimalSignup extends React.Component {
         if (status === 'done') {
             animalForm.animals[i].images.push(file)
             
-            this.setState({
-                animalForm : animalForm
-            })
         } else if (status === 'removed') {
             const images = animalForm.animals[i].images
             let imgIndex = images.indexOf(file)
-            console.log(imgIndex)
 
             let newArray = [
                 ...animalForm.animals[i].images.slice(0, imgIndex),
@@ -226,14 +221,12 @@ class AnimalSignup extends React.Component {
 
             animalForm.animals[i].images = newArray
         }
+
+        this.setState({
+            animalForm : animalForm
+        })
     }
     
-    // receives array of files that are done uploading when submit button is clicked
-    handleFileSubmit = (files, allFiles) => {
-        console.log(files.map(f => f.meta))
-        allFiles.forEach(f => f.remove())
-    }
-
     renderAnimalInputs() {
         // map through 'animals' object of state, then render inputs for each field
         return (
@@ -282,32 +275,39 @@ class AnimalSignup extends React.Component {
                         // 'animals' object may contain nested objects like toys and images
                         // Check for those and map through them to return inputs for each
                         if (k === 'toys') {
-                            return v.map( (e, idx) => {
-                                return Object.entries(e).map( ([k, v], iy) => {
-                                    return (
-                                    <div className="ml-4" key={iy}>
-                                    
-                                    <label
-                                    className="block mb-2 text-xs font-bold uppercase"
-                                    htmlFor={k}
-                                    >
-                                        Toy {idx + 1} URL
-                                    </label>
-                                    <button onClick={this.deleteObject('toy', i, iy)}>X</button>
-                                    <input
-                                    className="w-full mb-6 form-input"
-                                    type="url"
-                                    name={k}
-                                    value={v}
-                                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i].toys[idx], 'toy', i, idx)} }
-                                    />
-                                    </div>
-                                    )
-                                })
-                            });
+                            return (
+                                <div key={ix}>
+                                <label className="block mb-2 text-xs font-bold uppercase">Toys</label>
+                                {v.map( (e, idx) => {
+                                    return Object.entries(e).map( ([k, v], iy) => {
+                                        return (
+                                        <div className="ml-4" key={iy}>
+                                        
+                                        <label
+                                        className="block mb-2 text-xs font-bold uppercase"
+                                        htmlFor={k}
+                                        >
+                                            Toy {idx + 1} URL
+                                        </label>
+                                        <button onClick={this.deleteObject('toy', i, iy)}>X</button>
+                                        <input
+                                        className="w-full mb-6 form-input"
+                                        type="url"
+                                        name={k}
+                                        value={v}
+                                        onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i].toys[idx], 'toy', i, idx)} }
+                                        />
+                                        </div>
+                                        )
+                                    })
+                                })}
+                                <button onClick={this.addObject('toy', i)}>Add Toy</button>
+                                </div>
+                            )
                         } else if (k === 'images') {
                             return (
                                 <div key={ix}>
+                                <label className="block mb-2 text-xs font-bold uppercase">Pictures</label>
                                 <Dropzone
                                     getUploadParams={this.getUploadParams}
                                     onChangeStatus={(file, status, fileList) => this.handleChangeStatus(file, status, fileList, i)}
