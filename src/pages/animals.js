@@ -161,8 +161,9 @@ class AnimalSignup extends React.Component {
             animalForm.user = object
         } else if (type === 'toy'){
             animalForm.animals[ix].toys[iy] = object
-        } 
-
+        } else if (type === 'zoo'){
+            animalForm.zoo = object
+        }
 
         this.setState({
           animalForm : animalForm
@@ -386,9 +387,18 @@ class AnimalSignup extends React.Component {
                     Email
                 </label>
 
+                <input
+                    className="w-full mb-6 form-input"
+                    id="email"
+                    name="email"
+                    placeholder="Use your work email if you are a zookeeper"
+                    type="email"
+                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
+                />
+
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
-                    htmlFor="first_name"
+                    htmlFor="name"
                 >
                     Zoo Name
                 </label>
@@ -396,16 +406,23 @@ class AnimalSignup extends React.Component {
                 <input
                     className="w-full mb-6 form-input"
                     id="zoo_name"
-                    name="zoo_name"
+                    name="name"
                     placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
                 />
 
+                <label
+                    className="block mb-2 text-xs font-bold uppercase"
+                    htmlFor="website"
+                >
+                    Website
+                </label>
+                
                 <input
                     className="w-full mb-6 form-input"
-                    id="zoo_name"
-                    name="zoo_name"
+                    id="website"
+                    name="website"
                     placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
