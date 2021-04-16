@@ -6,35 +6,6 @@ import SEO from "../components/seo";
 // import { checkPropTypes } from "prop-types";
 import Dropzone from 'react-dropzone-uploader'
 
-// function encode(data) {
-//     return Object.keys(data)
-//       .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-//       .join('&')
-// }
-
-// function AnimalFields() {
-//     const [state, setState] = React.useState()
-//     const handleChange = (e) => {
-//         setState({...state, [e.target.name]: e.target.value})
-//         console.log(state)
-//     }
-
-//     return (
-//         <div>
-//             <label className="block mb-2 text-xs font-bold uppercase" htmlFor="name">Name</label>
-//             <input className="w-full mb-6 form-input" type="text" name="name" id="name" onChange={handleChange}/>
-
-//             <label className="block mb-2 text-xs font-bold uppercase" htmlFor="species">Species</label>
-//             <input className="w-full mb-6 form-input" type="text" name="species" id="species" onChange={handleChange}/>
-
-//             <label className="block mb-2 text-xs font-bold uppercase" htmlFor="bio">Bio</label>
-//             <input className="w-full mb-6 form-input" type="text-area" name="bio" id="bio" onChange={handleChange}/>
-
-
-//         </div>
-//     )
-// }
-
 class AnimalSignup extends React.Component {
     constructor() {
         super();
@@ -69,18 +40,17 @@ class AnimalSignup extends React.Component {
         }
         return initialState
     }
-
-    handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
-
-    handleChange = (e) => {
-        this.setState({ ...this.state, [e.target.name]: e.target.value })
-    }
+ 
+    // Where was this being used?
+    // handleChange = (e) => {
+    //     this.setState({ ...this.state, [e.target.name]: e.target.value })
+    // }
  
     // Example submit from 'react-dropzone' docs
-    handleDropSubmit = (files, allFiles) => {
-        console.log(files.map(f => f.meta))
-        allFiles.forEach(f => f.remove())
-    }
+    // handleDropSubmit = (files, allFiles) => {
+    //     console.log(files.map(f => f.meta))
+    //     allFiles.forEach(f => f.remove())
+    // }
 
     handleSubmit = (e) => {
         e.preventDefault()
@@ -191,7 +161,8 @@ class AnimalSignup extends React.Component {
             animalForm.user = object
         } else if (type === 'toy'){
             animalForm.animals[ix].toys[iy] = object
-        }
+        } 
+
 
         this.setState({
           animalForm : animalForm
@@ -200,19 +171,29 @@ class AnimalSignup extends React.Component {
    
     // specify upload params and url for your files
     // getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
-    getUploadParams = () => { return { url: 'https://httpbin.org/post' } }
+    getUploadParams = () => { return { url: 'http://127.0.0.1:3000/images/landing' } }
 
     // called every time a dropzone file's `status` changes
     handleChangeStatus = (file, status, fileList, i) => { 
-        console.log(i, status, file, fileList) 
         const animalForm = this.state.animalForm
-
+        console.log(status, file, fileList)
+        
         if (status === 'done') {
+            // const DEV_URL = 'http://127.0.0.1:3000/images/landing'
+
+            // axios.post(DEV_URL,
+            //     file,
+            //     {
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data'
+            //         }
+            //     }
+            // ).then(resp => console.log(resp))
+
             animalForm.animals[i].images.push(file)
             
         } else if (status === 'removed') {
-            const images = animalForm.animals[i].images
-            let imgIndex = images.indexOf(file)
+            let imgIndex = animalForm.animals[i].images.indexOf(file)
 
             let newArray = [
                 ...animalForm.animals[i].images.slice(0, imgIndex),
@@ -276,7 +257,7 @@ class AnimalSignup extends React.Component {
                         // Check for those and map through them to return inputs for each
                         if (k === 'toys') {
                             return (
-                                <div className="mt-4 mb-4" key={ix}>
+                                <div className="mt-4 mb-4 p-4" key={ix}>
                                 <label className="block mb-2 text-xs font-bold uppercase">Toys</label>
                                 {v.map( (e, idx) => {
                                     return Object.entries(e).map( ([k, v], iy) => {
@@ -341,6 +322,7 @@ class AnimalSignup extends React.Component {
             />
             <section className="mt-24 md:mt-0">
                 <form 
+                    encType="multipart/form-data"
                     className="mx-auto py-8 w-3/4 lg:w-1/2" 
                     name="signup"
                     method="post"
@@ -404,57 +386,31 @@ class AnimalSignup extends React.Component {
                     Email
                 </label>
 
+                <label
+                    className="block mb-2 text-xs font-bold uppercase"
+                    htmlFor="first_name"
+                >
+                    Zoo Name
+                </label>
+
                 <input
                     className="w-full mb-6 form-input"
-                    id="email"
-                    name="email"
-                    placeholder="Use your work email if you are a zookeeper"
-                    type="email"
-                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
+                    id="zoo_name"
+                    name="zoo_name"
+                    placeholder=""
+                    type="text"
+                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
+                />
+
+                <input
+                    className="w-full mb-6 form-input"
+                    id="zoo_name"
+                    name="zoo_name"
+                    placeholder=""
+                    type="text"
+                    onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
                 />
             
-                {/* {
-                    this.state.animalForm.animals.map( (e, i) => {
-                        return Object.entries(e).forEach( ([k, v]) => {
-                          if (typeof(v) === 'string') {
-                              let inputType = (k == 'bio' ? 'textarea':'text')
-                              
-                              console.log([i, k, v])
-                              return ( 
-                                  // {
-                                  //     type: inputType,
-                                  //     name: k,
-                                  //     value: v,
-                                  //     key: i
-                                  // }
-                                  <div key={i}>
-                                      <label
-                                      className="block mb-2 text-xs font-bold uppercase"
-                                      htmlFor={k}
-                                      >
-                                          {k}
-                                      </label>
-                                      <input
-                                      className="w-full mb-6 form-input"
-                                      type={inputType}
-                                      name={k}
-                                      value={v}
-                                      onChange={ e => {this.handleInputChange(e, this.state.animalForm, i)} }
-                                      />
-                                  </div>
-                              )   
-                          } else if (typeof(v) === 'object') {
-                            let element = {
-                              // type: inputType,
-                              name: k,
-                              value: v,
-                              key: ix
-                            }
-                            console.log(element)
-                          }
-                        })
-                    })
-                } */}
                 {this.renderAnimalInputs()}
 {/* 
                 <input 
