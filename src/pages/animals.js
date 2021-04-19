@@ -74,6 +74,9 @@ class AnimalSignup extends React.Component {
     }
 
     deleteObject = (type, ix, iy) => e => {
+        // type = 'string'
+        // ix = int // index of first object
+        // iy = int // index of object within ix
         e.preventDefault()
         const animalForm = this.state.animalForm
         
@@ -159,7 +162,6 @@ class AnimalSignup extends React.Component {
     }
    
     // getUploadParams and handleChangeStatus from react-dropzone-uploader API
-    // getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
     getUploadParams = (file) => { 
         // const IMG_CREATE_URL = 'https://dev.wildwish.org/images/landing
         const IMG_CREATE_URL = 'http://127.0.0.1:3000/images/landing'
@@ -203,7 +205,7 @@ class AnimalSignup extends React.Component {
     }
     
     renderAnimalInputs() {
-        // map through 'animals' object of state, then render inputs for each field
+        // map through 'animals' object in state, then render inputs for each field
         return (
         <>
         <h2>Animals</h2>
