@@ -5,6 +5,7 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 // import { checkPropTypes } from "prop-types";
 import Dropzone from 'react-dropzone-uploader'
+import { v4 as uuidv4 } from 'uuid';
 
 class AnimalSignup extends React.Component {
     constructor() {
@@ -32,7 +33,9 @@ class AnimalSignup extends React.Component {
                     species: '',
                     dob: '',
                     bio: '',
-                    images: [],
+                    images: [
+                        // { uuid: 'string' }
+                    ],
                     toys: [ {url: ''}, {url: ''}, {url: ''} ],
                 } ],
             },
@@ -55,33 +58,12 @@ class AnimalSignup extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         const DEV_URL = 'http://127.0.0.1:3000/animals/landing'
-        console.log(DEV_URL)
-
-        // console.log(files.map(f => f.meta))
-        // allFiles.forEach(f => f.remove())
-
         const form = e.target
-        // console.log(this.state)
-        // fetch(DEV_URL, {
-        //     method: 'POST',
-        //     headers: { "Content-Type": "application/json", },
-        //     body: encode({
-        //         'form-name': form.getAttribute('name'),
-        //         ...this.state.animalForm,
-        //     }),
-        // })
-        // .then(() => navigate(form.getAttribute('action')))
-        // .catch((error) => alert(error))
-
-        
-        // axios.get(DEV_URL)
+    
         axios.post(DEV_URL, 
             this.state.animalForm,
             {
-                headers: {
-                    "Content-Type": 'multipart/form-data', 
-                    // 'X-CSRFToken': csrfToken
-                }
+                headers: { "Content-Type": "application/json", },
             }
         )
         .then(resp => console.log(resp))
@@ -116,11 +98,13 @@ class AnimalSignup extends React.Component {
     };
     
     addObject = (type, i) => e => {
+        // type = 'string' // 'animal' or 'toy'
+        // i = int // if provided, is the index of the object that new object will be appended to
         e.preventDefault()
         const animalForm = this.state.animalForm
 
         if (type === 'animal') {
-            const animal = {
+            const object = {
                 name: '',
                 species: '',
                 dob: '',
@@ -128,12 +112,12 @@ class AnimalSignup extends React.Component {
                 images: [],
                 toys: [ {url: ''}, {url: ''}, {url: ''} ],
             }
-            animalForm.animals = this.state.animalForm.animals.concat(animal)
+            animalForm.animals = this.state.animalForm.animals.concat(object)
         } else if (type === 'toy') {
-            const toy = {
+            const object = {
                 url: ''
             }
-            animalForm.animals[i].toys = this.state.animalForm.animals[i].toys.concat(toy)
+            animalForm.animals[i].toys = this.state.animalForm.animals[i].toys.concat(object)
         }
         
         this.setState({
@@ -149,6 +133,9 @@ class AnimalSignup extends React.Component {
         // object = this.state.animalForm.user
         // e.name = 'last_name'
         // e.value = 'Blart'
+
+        // ix = int // Index of first nested object
+        // iy = int // Index of nested object inside ix
 
         const animalForm = this.state.animalForm;
         let key = e.target.name;
@@ -170,32 +157,31 @@ class AnimalSignup extends React.Component {
         });
     }
    
-    // specify upload params and url for your files
+    // getUploadParams and handleChangeStatus from react-dropzone-uploader API
     // getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
-    getUploadParams = () => { return { url: 'http://127.0.0.1:3000/images/landing' } }
+    getUploadParams = (file) => { 
+        file.meta.uuid = uuidv4()
+        const fields = { 
+            upload: file,
+            uuid: file.meta.uuid, 
+        }
+        
+        return { url: 'http://127.0.0.1:3000/images/landing', fields: fields} 
+    }
 
     // called every time a dropzone file's `status` changes
     handleChangeStatus = (file, status, fileList, i) => { 
         const animalForm = this.state.animalForm
-        console.log(status, file, fileList)
         
         if (status === 'done') {
-            // const DEV_URL = 'http://127.0.0.1:3000/images/landing'
-
-            // axios.post(DEV_URL,
-            //     file,
-            //     {
-            //         headers: {
-            //             'Content-Type': 'multipart/form-data'
-            //         }
-            //     }
-            // ).then(resp => console.log(resp))
-
-            animalForm.animals[i].images.push(file)
-            
+            // add image uuid (set in getUploadParams) to form's state
+            animalForm.animals[i].images.push({uuid: file.meta.uuid})
         } else if (status === 'removed') {
+            // Will need to send a DELETE request with image uuid
+
             let imgIndex = animalForm.animals[i].images.indexOf(file)
 
+            // New array with image object sliced out
             let newArray = [
                 ...animalForm.animals[i].images.slice(0, imgIndex),
                 ...animalForm.animals[i].images.slice(imgIndex + 1)
@@ -207,6 +193,9 @@ class AnimalSignup extends React.Component {
         this.setState({
             animalForm : animalForm
         })
+
+        // Returning this ensures that file meta is set (uuid added earlier in lifecycle)
+        return file.meta
     }
     
     renderAnimalInputs() {
@@ -289,6 +278,7 @@ class AnimalSignup extends React.Component {
                         } else if (k === 'images') {
                             return (
                                 <div key={ix}>
+                                {/* EACH ANIMAL HAS DROPZONE FOR PICTURES; AUTOMATIC UPLOADS */}
                                 <label className="block mb-2 text-xs font-bold uppercase">Pictures</label>
                                 <Dropzone
                                     getUploadParams={this.getUploadParams}
@@ -298,7 +288,6 @@ class AnimalSignup extends React.Component {
                                     accept="image/*,audio/*,video/*"
                                 />                                
                                 </div>
-                                
                             )
                         }
                     }
@@ -333,7 +322,7 @@ class AnimalSignup extends React.Component {
                     onSubmit={this.handleSubmit}
                 >
 
-                {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+                {/* The `form-name` hidden field is required to support form submissions without JavaScript [Netlify] */}
                 <input type="hidden" name="form-name" value="animal_signup" />
                 <p hidden>
                     <label>
@@ -345,9 +334,10 @@ class AnimalSignup extends React.Component {
                     Add your animals and their wishes to the pilot program
                 </p>
 
-                {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+                {/* The `form-name` hidden field is required to support form submissions without JavaScript [Netlify]*/}
                 <input type="hidden" name="form-name" value="animal_signup"/>
 
+                {/* BEGIN FORM INPUTS */}
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
                     htmlFor="first_name"
@@ -359,7 +349,7 @@ class AnimalSignup extends React.Component {
                     className="w-full mb-6 form-input"
                     id="first_name"
                     name="first_name"
-                    placeholder="Paul"
+                    placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
@@ -375,7 +365,7 @@ class AnimalSignup extends React.Component {
                     className="w-full mb-6 form-input"
                     id="last_name"
                     name="last_name"
-                    placeholder="Blart"
+                    placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
@@ -391,7 +381,7 @@ class AnimalSignup extends React.Component {
                     className="w-full mb-6 form-input"
                     id="email"
                     name="email"
-                    placeholder="Use your work email if you are a zookeeper"
+                    placeholder=""
                     type="email"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
@@ -428,48 +418,9 @@ class AnimalSignup extends React.Component {
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
                 />
             
+                {/* RENDER DYNAMIC INPUTS */}
                 {this.renderAnimalInputs()}
-{/* 
-                <input 
-                    className="form-checkbox"
-                    type="checkbox"
-                    onChange={this.handleCheck}
-                />
 
-                <label className="inline-block px-2 mb-2 text-xs font-thin tracking-tight">
-                    Add my animals to the pilot program.
-                </label>
-
-                <div className={ hidden }>
-                    <label className="block my-2 text-xs font-bold uppercase">
-                        Zoo Name
-                    </label>
-                    <input 
-                        className="w-full mb-2 form-input"
-                        type="text"
-                        name="zoo-name"
-                        onChange={this.handleChange}
-                    >
-                    </input>
-                    <p className="inline-block mb-2 text-xs font-thin tracking-tight">You&apos;ll get a link to create an account and add your animals when we launch.</p>
-                </div>
-
-                <label
-                    className="block mb-2 mt-4 text-xs font-bold uppercase"
-                    htmlFor="message"
-                >
-                    Message <span className="font-xs font-hairline">(optional)</span>
-                </label>
-
-                <textarea
-                    className="w-full mb-6 form-textarea"
-                    id="message"
-                    name="message"
-                    placeholder="What's your favorite animal?"
-                    rows="8"
-                    onChange={this.handleChange}
-                /> 
-*/}
                 <button 
                     className="px-4 py-2 text-sm font-bold text-white bg-gray-700 border-b-4 border-gray-800 rounded hover:border-gray-700 hover:bg-gray-600"
                     type='submit'
