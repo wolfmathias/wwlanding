@@ -57,10 +57,11 @@ class AnimalSignup extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const DEV_URL = 'http://127.0.0.1:3000/animals/landing'
+        const ANIMAL_CREATE_URL = 'http://127.0.0.1:3000/animals/landing'
+        // const ANIMAL_CREATE_URL = 'https://dev.wildwish.org/animals/landing
         const form = e.target
     
-        axios.post(DEV_URL, 
+        axios.post(ANIMAL_CREATE_URL, 
             this.state.animalForm,
             {
                 headers: { "Content-Type": "application/json", },
@@ -160,13 +161,16 @@ class AnimalSignup extends React.Component {
     // getUploadParams and handleChangeStatus from react-dropzone-uploader API
     // getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
     getUploadParams = (file) => { 
+        // const IMG_CREATE_URL = 'https://dev.wildwish.org/images/landing
+        const IMG_CREATE_URL = 'http://127.0.0.1:3000/images/landing'
+
         file.meta.uuid = uuidv4()
         const fields = { 
             upload: file,
             uuid: file.meta.uuid, 
         }
         
-        return { url: 'http://127.0.0.1:3000/images/landing', fields: fields} 
+        return { url: IMG_CREATE_URL, fields: fields} 
     }
 
     // called every time a dropzone file's `status` changes
