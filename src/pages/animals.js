@@ -57,8 +57,8 @@ class AnimalSignup extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const ANIMAL_CREATE_URL = 'http://127.0.0.1:3000/animals/landing'
-        // const ANIMAL_CREATE_URL = 'https://dev.wildwish.org/animals/landing
+        // const ANIMAL_CREATE_URL = 'http://127.0.0.1:3000/animals/landing'
+        const ANIMAL_CREATE_URL = 'https://dev.wildwish.org/animals/landing'
         const form = e.target
     
         axios.post(ANIMAL_CREATE_URL, 
@@ -163,8 +163,8 @@ class AnimalSignup extends React.Component {
    
     // getUploadParams and handleChangeStatus from react-dropzone-uploader API
     getUploadParams = (file) => { 
-        // const IMG_CREATE_URL = 'https://dev.wildwish.org/images/landing
-        const IMG_CREATE_URL = 'http://127.0.0.1:3000/images/landing'
+        const IMG_CREATE_URL = 'https://dev.wildwish.org/images/landing'
+        // const IMG_CREATE_URL = 'http://127.0.0.1:3000/images/landing'
 
         file.meta.uuid = uuidv4()
         const fields = { 
