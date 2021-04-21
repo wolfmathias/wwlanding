@@ -208,16 +208,18 @@ export default class AnimalSignup extends React.Component {
         // map through 'animals' object in state, then render inputs for each field
         return (
         <>
-        <h2>Animals</h2>
         <ul >
         {this.state.animalForm.animals.map( (e, i) => {
             return (
-                <li key={i}>{i + 1}
+                <li key={i}>
+                <div className='border border-solid rounded border-2 py-2'>
                 <button onClick={this.deleteObject('animal', i)}>X</button>
+                
                 {Object.entries(e).map( ([k, v], ix) => {
                     
                     if (typeof(v) === 'string') {
                         return ( 
+
                             <div key={ix}>
                                 <label
                                 className="block mb-2 text-xs font-bold uppercase"
@@ -298,6 +300,7 @@ export default class AnimalSignup extends React.Component {
                         }
                     }
                 })}
+                </div>
             </li>
             )
         })}
@@ -316,10 +319,13 @@ export default class AnimalSignup extends React.Component {
                 keywords={[`wildwish`, `wildheart`, `signup`, `zoo`, `nonprofit`]}
                 title="Signup"
             />
-            <section className="mt-24 md:mt-0">
+            <section className="flex mt-24 md:mt-0 items-center">
+                
+            <div className="w-full bg-white rounded shadow-lg lg:p-8 lg:m-4 md:mx-auto">
+
                 <form 
                     encType="multipart/form-data"
-                    className="mx-auto py-8 w-3/4 lg:w-1/2" 
+                    className="mx-auto lg:py-8 w-full md:w-3/4 lg:w-1/2 md:flex md:flex-wrap md:justify-between" 
                     name="signup"
                     method="post"
                     action="/thanks/"
@@ -336,14 +342,18 @@ export default class AnimalSignup extends React.Component {
                     </label>
                 </p>
 
-                <p className="mb-8 leading-loose">
-                    Add your animals and their wishes to the pilot program
-                </p>
 
                 {/* The `form-name` hidden field is required to support form submissions without JavaScript [Netlify]*/}
                 <input type="hidden" name="form-name" value="animal_signup"/>
 
                 {/* BEGIN FORM INPUTS */}
+                
+                    
+
+                   
+                
+                <div className='flex flex-wrap items-center justify-between' >
+                <div className='flex flex-col w-full md:w-1/2 px-8'>
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
                     htmlFor="first_name"
@@ -352,14 +362,16 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
-                    className="w-full mb-6 form-input"
+                    className="mb-4 form-input"
                     id="first_name"
                     name="first_name"
                     placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
+                </div>
 
+                <div className='flex flex-col w-full md:w-1/2 px-8'>
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
                     htmlFor="last-name"
@@ -368,14 +380,16 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
-                    className="w-full mb-6 form-input"
+                    className="mb-4 form-input"
                     id="last_name"
                     name="last_name"
                     placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
+                </div>
 
+                <div className='flex flex-col w-full md:w-1/2 px-8'>
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
                     htmlFor="email"
@@ -384,14 +398,16 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
-                    className="w-full mb-6 form-input"
+                    className="mb-4 form-input"
                     id="email"
                     name="email"
                     placeholder=""
                     type="email"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.user, 'user')} }
                 />
+                </div>
 
+                <div className='flex flex-col w-full md:w-1/2 px-8'>
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
                     htmlFor="name"
@@ -400,14 +416,16 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
-                    className="w-full mb-6 form-input"
+                    className="w-full mb-4 form-input"
                     id="zoo_name"
                     name="name"
                     placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
                 />
+                </div>
 
+                <div className='flex flex-col w-full md:w-1/2 px-8'>
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
                     htmlFor="website"
@@ -416,16 +434,24 @@ export default class AnimalSignup extends React.Component {
                 </label>
                 
                 <input
-                    className="w-full mb-6 form-input"
+                    className="w-full mb-4 form-input"
                     id="website"
                     name="website"
                     placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
                 />
+                </div>
             
+
                 {/* RENDER DYNAMIC INPUTS */}
+                <h2
+                    className="block mb-2 p-8 text-xs font-bold uppercase"
+                >
+                    Animals
+                </h2>
                 {this.renderAnimalInputs()}
+                </div>
 
                 <button 
                     className="px-4 py-2 text-sm font-bold text-white bg-gray-700 border-b-4 border-gray-800 rounded hover:border-gray-700 hover:bg-gray-600"
@@ -434,6 +460,7 @@ export default class AnimalSignup extends React.Component {
                     Submit
                 </button>
                 </form>
+                </div>
             </section>
             </Layout>
         )
