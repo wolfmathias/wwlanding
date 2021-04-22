@@ -36,7 +36,7 @@ export default class AnimalSignup extends React.Component {
                     images: [
                         // { uuid: 'string' }
                     ],
-                    toys: [ {url: ''}, {url: ''}, {url: ''} ],
+                    toys: [ {url: ''} ],
                 } ],
             },
             errors: {}
@@ -86,14 +86,14 @@ export default class AnimalSignup extends React.Component {
                 ...animalForm.animals.slice(ix + 1)
             ]
 
-            animalForm.animals = newArray            
+            if (newArray.length > 0) {animalForm.animals = newArray}        
         } else if (type === 'toy') {
             let newArray = [
                 ...animalForm.animals[ix].toys.slice(0, iy),
                 ...animalForm.animals[ix].toys.slice(iy + 1)
             ]
 
-            animalForm.animals[ix].toys = newArray
+            if (newArray.length > 0) {animalForm.animals[ix].toys = newArray}
         }
 
         this.setState({
@@ -114,7 +114,7 @@ export default class AnimalSignup extends React.Component {
                 dob: '',
                 bio: '',
                 images: [],
-                toys: [ {url: ''}, {url: ''}, {url: ''} ],
+                toys: [ {url: ''} ],
             }
             animalForm.animals = this.state.animalForm.animals.concat(object)
         } else if (type === 'toy') {
@@ -208,21 +208,25 @@ export default class AnimalSignup extends React.Component {
         // map through 'animals' object in state, then render inputs for each field
         return (
         <>
-        <ul >
+        <ul className='w-full grid justify-items-stretch'>
         {this.state.animalForm.animals.map( (e, i) => {
             return (
                 <li key={i}>
-                <div className='border border-solid rounded border-2 py-2'>
-                <button onClick={this.deleteObject('animal', i)}>X</button>
+                <div className='border border-solid rounded border-2 w-full mx-4 my-2 px-4 py-2 shadow'>
+                {/* <div className='flex flex-col w-full md:w-1/2 px-8'> */}
+                <div className='grid w-full justify-items-stretch'>
+
+                <button title='Delete' className='justify-self-end text-red-700 font-bold' onClick={this.deleteObject('animal', i)}>X</button>
+                </div>
                 
                 {Object.entries(e).map( ([k, v], ix) => {
                     
                     if (typeof(v) === 'string') {
                         return ( 
-
-                            <div key={ix}>
+                           
+                            <div className='flex flex-col' key={ix}>
                                 <label
-                                className="block mb-2 text-xs font-bold uppercase"
+                                className="inline mb-2 text-xs font-bold uppercase"
                                 htmlFor={k}
                                 >
                                     {k}
@@ -230,24 +234,31 @@ export default class AnimalSignup extends React.Component {
                                 
                                 {k === 'bio' ? 
                                 // Use 'textarea' for bio input
+                                
+                                
                                 <textarea
+                                required
                                 className="w-full h-24 mb-6 form-input"
                                 type='text'
                                 name={k}
                                 value={v}
                                 onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i], 'animal', i)} }
                                 />
+                                
                                 :
                                 // Also check to see if 'text' or 'date' should be used for input
+                                <>
+                                {k === 'dob' ? <p className='inline'>Optional</p>: <></>}
                                 <input
-                                className="w-full md:w-1/3 mb-6 form-input"
+                                required={k === 'dob' ? false:true}
+                                className="w-full mb-6 form-input"
                                 type={k === 'dob' ? 'date':'text'}
                                 name={k}
                                 value={v}
                                 onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i], 'animal', i)} }
                                 />
+                                </>
                                 }
-                                
                             </div>
                         )   
                     } else if (typeof(v) === 'object') {
@@ -260,15 +271,16 @@ export default class AnimalSignup extends React.Component {
                                 {v.map( (e, idx) => {
                                     return Object.entries(e).map( ([k, v], iy) => {
                                         return (
-                                        <div className="ml-4" key={iy}>
-                                        
+                                        <div className='grid w-full justify-items-stretch' key={iy}>
+                                        <span>
                                         <label
-                                        className="block mb-2 text-xs font-bold uppercase"
+                                        className="mb-2 text-xs font-bold uppercase justify-self-start"
                                         htmlFor={k}
                                         >
                                             Toy {idx + 1} URL
                                         </label>
-                                        <button onClick={this.deleteObject('toy', i, idx)}>X</button>
+                                        </span>
+                                        <button title='Delete' className='justify-self-end text-red-700 font-bold' onClick={this.deleteObject('toy', i, idx)}>X</button>
                                         <input
                                         className="w-full mb-6 form-input"
                                         type="url"
@@ -280,7 +292,7 @@ export default class AnimalSignup extends React.Component {
                                         )
                                     })
                                 })}
-                                <button onClick={this.addObject('toy', i)}>Add Toy</button>
+                                <button className='px-4 py-2 text-sm font-bold text-teal-700 hover:text-white hover:bg-teal-700 border-2 border-teal-700 rounded' onClick={this.addObject('toy', i)}>Add Toy</button>
                                 </div>
                             )
                         } else if (k === 'images') {
@@ -304,8 +316,8 @@ export default class AnimalSignup extends React.Component {
             </li>
             )
         })}
+        <button className="justify-self-center px-4 py-2 text-sm font-bold text-teal-700 hover:text-white hover:bg-teal-700 border-2 border-teal-700 rounded" onClick={this.addObject('animal')}>ADD ANIMAL</button>
         </ul>
-        <button onClick={this.addObject('animal')}>Add Animal</button>
         </>
         )
       }
@@ -319,6 +331,10 @@ export default class AnimalSignup extends React.Component {
                 keywords={[`wildwish`, `wildheart`, `signup`, `zoo`, `nonprofit`]}
                 title="Signup"
             />
+            <div className='w-full grid justify-items-center mt-4'>
+                <h1 className='flex flex-col'>Sign your animals up for the pilot program</h1>
+                <p></p>
+            </div>
             <section className="flex mt-24 md:mt-0 items-center">
                 
             <div className="w-full bg-white rounded shadow-lg lg:p-8 lg:m-4 md:mx-auto">
@@ -348,10 +364,6 @@ export default class AnimalSignup extends React.Component {
 
                 {/* BEGIN FORM INPUTS */}
                 
-                    
-
-                   
-                
                 <div className='flex flex-wrap items-center justify-between' >
                 <div className='flex flex-col w-full md:w-1/2 px-8'>
                 <label
@@ -362,6 +374,7 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
+                    required
                     className="mb-4 form-input"
                     id="first_name"
                     name="first_name"
@@ -380,6 +393,7 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
+                    required
                     className="mb-4 form-input"
                     id="last_name"
                     name="last_name"
@@ -389,7 +403,7 @@ export default class AnimalSignup extends React.Component {
                 />
                 </div>
 
-                <div className='flex flex-col w-full md:w-1/2 px-8'>
+                <div className='flex flex-col w-full px-8'>
                 <label
                     className="block mb-2 text-xs font-bold uppercase"
                     htmlFor="email"
@@ -398,6 +412,7 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
+                    required
                     className="mb-4 form-input"
                     id="email"
                     name="email"
@@ -416,6 +431,7 @@ export default class AnimalSignup extends React.Component {
                 </label>
 
                 <input
+                    required
                     className="w-full mb-4 form-input"
                     id="zoo_name"
                     name="name"
@@ -434,6 +450,7 @@ export default class AnimalSignup extends React.Component {
                 </label>
                 
                 <input
+                    required
                     className="w-full mb-4 form-input"
                     id="website"
                     name="website"
@@ -446,7 +463,7 @@ export default class AnimalSignup extends React.Component {
 
                 {/* RENDER DYNAMIC INPUTS */}
                 <h2
-                    className="block mb-2 p-8 text-xs font-bold uppercase"
+                    className="block mb-2 p-8 text-xs font-bold uppercase w-full"
                 >
                     Animals
                 </h2>
@@ -454,7 +471,7 @@ export default class AnimalSignup extends React.Component {
                 </div>
 
                 <button 
-                    className="px-4 py-2 text-sm font-bold text-white bg-gray-700 border-b-4 border-gray-800 rounded hover:border-gray-700 hover:bg-gray-600"
+                    className="px-4 py-2 text-sm font-bold text-white bg-teal-700 border-b-4 border-gray-800 rounded hover:border-teal-700 hover:bg-teal-600"
                     type='submit'
                 >    
                     Submit
