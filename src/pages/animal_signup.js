@@ -206,6 +206,12 @@ export default class AnimalSignup extends React.Component {
     
     renderAnimalInputs() {
         // map through 'animals' object in state, then render inputs for each field
+        let isRequired = (k) => {
+            if (k === 'dob') {return false}
+            else if (k === 'bio') {return false}
+            else {return true}
+        }
+
         return (
         <>
         <ul className='w-full grid justify-items-stretch'>
@@ -225,13 +231,16 @@ export default class AnimalSignup extends React.Component {
                         return ( 
                            
                             <div className='flex flex-col' key={ix}>
+                                <span className='flex flex-wrap inline-block'>
                                 <label
-                                className="inline mb-2 text-xs font-bold uppercase"
+                                className=" mb-2 text-xs font-bold uppercase"
                                 htmlFor={k}
                                 >
                                     {k}
                                 </label>
-                                
+                                {/* {k === 'bio' || 'dob' ? <small className='mb-2 px-2 font-thin'>Optional</small>: <></>} */}
+                                {!isRequired(k) ? <small className='mb-2 px-2 font-thin'>Optional</small>: <></>}
+                                </span>
                                 {k === 'bio' ? 
                                 // Use 'textarea' for bio input
                                 
@@ -249,7 +258,7 @@ export default class AnimalSignup extends React.Component {
                                 :
                                 // Also check to see if 'text' or 'date' should be used for input
                                 <>
-                                {k === 'dob' ? <p className='inline'>Optional</p>: <></>}
+                                
                                 <input
                                 required={k === 'dob' ? false:true}
                                 className="w-full mb-6 form-input"
@@ -268,7 +277,10 @@ export default class AnimalSignup extends React.Component {
                         if (k === 'toys') {
                             return (
                                 <div className="mt-4 mb-4 p-4" key={ix}>
+                                <span className="flex flex-wrap inline-block">
                                 <label className="block mb-2 text-xs font-bold uppercase">Toys</label>
+                                <small className='mb-2 px-2 font-thin'>Add as many as you want</small>
+                                </span>
                                 {v.map( (e, idx) => {
                                     return Object.entries(e).map( ([k, v], iy) => {
                                         return (
@@ -303,6 +315,7 @@ export default class AnimalSignup extends React.Component {
                                 {/* EACH ANIMAL HAS DROPZONE FOR PICTURES; AUTOMATIC UPLOADS */}
                                 <label className="block mb-2 text-xs font-bold uppercase">Pictures</label>
                                 <Dropzone
+                                    required
                                     getUploadParams={this.getUploadParams}
                                     onChangeStatus={(file, status, fileList) => this.handleChangeStatus(file, status, fileList, i)}
                                     // onSubmit={this.handleDropSubmit}
