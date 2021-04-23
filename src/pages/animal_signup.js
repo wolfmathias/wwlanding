@@ -331,13 +331,14 @@ export default class AnimalSignup extends React.Component {
                 keywords={[`wildwish`, `wildheart`, `signup`, `zoo`, `nonprofit`]}
                 title="Signup"
             />
-            <div className='w-full grid justify-items-center mt-4'>
-                <h1 className='flex flex-col'>Sign your animals up for the pilot program</h1>
+            <div className='w-full grid justify-items-center mt-24 md:mt-4 md:px-24 '>
+                <h1 className='font-bold tracking-widest py-4'>Sign your animals up for the pilot program</h1>
+                <p className='tracking-wider leading-relaxed px-6 py-2 lg:w-1/2'>Add as many toys as you want to their wishlists! When you get enrichment from us, simply send pictures and video to activate the next item on the wishlist.</p>
                 <p></p>
             </div>
-            <section className="flex mt-24 md:mt-0 items-center">
+            <section className="flex mt-8 lg:mt-0 items-center">
                 
-            <div className="w-full bg-white rounded shadow-lg lg:p-8 lg:m-4 md:mx-auto">
+            <div className="w-full bg-white rounded shadow-lg lg:px-8 lg:m-4 md:mx-auto">
 
                 <form 
                     encType="multipart/form-data"
