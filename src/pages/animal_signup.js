@@ -242,6 +242,7 @@ export default class AnimalSignup extends React.Component {
                                 type='text'
                                 name={k}
                                 value={v}
+                                placeholder='Who is their favorite zookeeper and why is it you?'
                                 onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i], 'animal', i)} }
                                 />
                                 
@@ -286,6 +287,7 @@ export default class AnimalSignup extends React.Component {
                                         type="url"
                                         name={k}
                                         value={v}
+                                        placeholder='Link to toy or enrichment'
                                         onChange={ e => {this.handleInputChange(e, this.state.animalForm.animals[i].toys[idx], 'toy', i, idx)} }
                                         />
                                         </div>
