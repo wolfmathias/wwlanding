@@ -246,7 +246,6 @@ export default class AnimalSignup extends React.Component {
                                 
                                 
                                 <textarea
-                                required
                                 className="w-full h-24 mb-6 form-input"
                                 type='text'
                                 name={k}
