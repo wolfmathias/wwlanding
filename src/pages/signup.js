@@ -128,7 +128,7 @@ export default class AnimalSignup extends React.Component {
             animalForm: animalForm
         });
     };
-
+    // (e, this.state.animalForm.zoo, 'zoo')
     handleInputChange = (e , object , type, ix, iy) => {
         // object = this.state.animalForm.animals[0]
         // e.name = 'name'
@@ -143,6 +143,11 @@ export default class AnimalSignup extends React.Component {
 
         const animalForm = this.state.animalForm;
         let key = e.target.name;
+        // Zoo Name input should have 'zoo_name' as 'name' element attribute to prevent autofilling with saved first name form inputs
+        // if statement makes sure this still plays nice with form state 
+        // alternatively could rename key in state to 'zoo_name' and then refactor server code to grab that key
+        // but whatever
+        if (key === 'zoo_name') { key = 'name' }
         let value = e.target.value;
         object[key] = value;
   
@@ -449,7 +454,7 @@ export default class AnimalSignup extends React.Component {
                     required
                     className="w-full mb-4 form-input"
                     id="zoo_name"
-                    name="name"
+                    name="zoo_name"
                     placeholder=""
                     type="text"
                     onChange={ e => {this.handleInputChange(e, this.state.animalForm.zoo, 'zoo')} }
