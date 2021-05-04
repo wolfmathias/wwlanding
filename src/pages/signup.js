@@ -353,7 +353,7 @@ export default class AnimalSignup extends React.Component {
             <div className='w-full grid justify-items-center mt-24 md:mt-4 md:px-24 '>
                 <h1 className='font-bold tracking-widest py-4'>Sign your animals up for the pilot program</h1>
                 <p className='tracking-wider leading-relaxed px-6 py-2 lg:w-1/2'>Add as many toys as you want to their wishlists! When you get enrichment from us, simply send pictures and video to activate the next item on the wishlist and keep the toys coming in.</p>
-                <p></p>
+                <p className='tracking-wider leading-relaxed px-6 py-2 lg:w-1/2'>You can submit this form as many times as you need. Do not refresh the page while filling out the form.</p>
             </div>
             <section className="flex mt-8 lg:mt-0 items-center">
                 
